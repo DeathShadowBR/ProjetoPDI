@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projetopdi;
+package pgm;
 
-import pgm.ImagePGM;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import projetopdi.Console;
 
 /**
  *
  * @author gusta
  */
-public class ConvertImageMatriz {
+public class ConvertImageMatrizPGM {
     public static ImagePGM lerArq(File file){
                
         ImagePGM image = null;
@@ -56,6 +57,9 @@ public class ConvertImageMatriz {
         }
         return image;
     }
+    
+   
+    
     public static void salvarArq (File file, ImagePGM image){
         try {
             
@@ -75,7 +79,7 @@ public class ConvertImageMatriz {
                 arq.close();
                 Console.setConsole("Salvar", "Imagem Salva: " + file.getPath());
             } catch (IOException ex) {
-                System.out.println("Arquivo não Criado");
+                 Console.setConsole("ERRO", "Arquivo não criado");
        
             }
         
