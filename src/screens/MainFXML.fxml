@@ -37,6 +37,13 @@
                           <MenuItem mnemonicParsing="false" onAction="#MenuSoma" text="Soma" />
                               <MenuItem mnemonicParsing="false" onAction="#MenuSubtrair" text="Subtrair" />
                               <MenuItem mnemonicParsing="false" onAction="#MenuBrilho" text="Brilho" />
+                              <Menu mnemonicParsing="false" text="Filtragem Espacial">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#MenuFiltroMedia" text="Filtro Media" />
+                                  <MenuItem mnemonicParsing="false" onAction="#MenuFiltroMediana" text="Filtro Mediana" />
+                                </items>
+                              </Menu>
+                              <MenuItem mnemonicParsing="false" onAction="#MenuHistograma" text="Histograma" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Help">

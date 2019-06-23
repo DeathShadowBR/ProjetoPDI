@@ -5,6 +5,8 @@
  */
 package projetopdi;
 
+import pgm.OperacoesPGM;
+import pgm.ImagePGM;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -137,6 +139,63 @@ public class FXMLMainController implements Initializable {
         
     }
     
+      @FXML
+    void MenuFiltroMedia(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/Popup.fxml"));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+       
+       
+        popup().popupLabel1.setText("Dimensão da Mascara"); 
+        
+        stage.showAndWait();
+       
+        int valor = Integer.parseInt(popup().input1);
+
+        imageResultado = OperacoesPGM.filtroMedia(image1, valor);
+   
+        imageView2.setImage(convertMatrizToPNG(this.imageResultado.matriz));
+    }
+    
+    
+    @FXML
+    void MenuFiltroMediana(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/Popup.fxml"));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+       
+       
+        popup().popupLabel1.setText("Dimensão da Mascara"); 
+        
+        stage.showAndWait();
+       
+        int valor = Integer.parseInt(popup().input1);
+
+        imageResultado = OperacoesPGM.filtroMediana(image1, valor);
+   
+        imageView2.setImage(convertMatrizToPNG(this.imageResultado.matriz));
+    }
+    
+    
+    @FXML
+    void MenuHistograma(ActionEvent event) throws IOException {
+        
+        if(image1 == null) return;
+        
+        int hist[] = OperacoesPGM.histograma(image1);
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/ChartFXML.fxml"));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        
+        FXMLChartController.instancia.data = hist;
+        
+        FXMLChartController.instancia.chart();
+        stage.showAndWait();
+        
+    }
     
     //------------------------------------------------------------------------>
     
@@ -167,7 +226,7 @@ public class FXMLMainController implements Initializable {
     void onClickSave(ActionEvent event) {
        FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PGM - Portable GrayMap (*.pgm)", "*.pgm"));
-        File file = chooser.showSaveDialog(((MenuItem)event.getTarget()).getParentPopup().getScene().getWindow());
+        File file = chooser.showSaveDialog(((Button)event.getTarget()).getScene().getWindow());
         if(file!=null){
             ConvertImageMatriz.salvarArq(file, imageResultado);
         }
@@ -212,7 +271,7 @@ public class FXMLMainController implements Initializable {
     }
     
     private void trocar() throws IOException{
-        
+        if(imageResultado == null) return;
         image1 = imageResultado;
         imageResultado = null;
         imageView1.setImage(convertMatrizToPNG(this.image1.matriz));
